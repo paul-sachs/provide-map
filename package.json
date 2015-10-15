@@ -1,6 +1,6 @@
 {
   "name": "react-redux-provide-selectable",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Provides a handful of common actions and props specific to selecting keys within some object.",
   "main": "./lib/selectable.js",
   "scripts": {
