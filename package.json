@@ -1,0 +1,34 @@
+{
+  "name": "react-redux-provide-selectable",
+  "version": "0.1.0",
+  "description": "Provides a handful of common actions and props specific to selecting keys within some object.",
+  "main": "./lib/selectable.js",
+  "scripts": {
+    "build": "babel src --out-dir lib --stage 0",
+    "clean": "rimraf lib",
+    "prepublish": "npm run clean && npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/loggur/react-redux-provide-selectable.git"
+  },
+  "keywords": [
+    "react",
+    "redux",
+    "provide",
+    "selectable",
+    "object",
+    "keys"
+  ],
+  "author": "timbur",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/loggur/react-redux-provide-selectable/issues"
+  },
+  "homepage": "https://github.com/loggur/react-redux-provide-selectable#readme",
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "rimraf": "^2.4.3"
+  }
+}
