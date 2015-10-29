@@ -5,7 +5,7 @@
 [![build status](https://img.shields.io/travis/loggur/react-redux-provide-map/master.svg?style=flat-square)](https://travis-ci.org/loggur/react-redux-provide-map) [![npm version](https://img.shields.io/npm/v/react-redux-provide-map.svg?style=flat-square)](https://www.npmjs.com/package/react-redux-provide-map)
 [![npm downloads](https://img.shields.io/npm/dm/react-redux-provide-map.svg?style=flat-square)](https://www.npmjs.com/package/react-redux-provide-map)
 
-Provides a handful of common actions and props specific to lists and items.
+Provides a handful of common actions and props specific to maps and items.
 
 
 ## Installation
