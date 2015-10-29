@@ -1,6 +1,6 @@
 {
   "name": "react-redux-provide-map",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Provides a handful of common actions and props specific to selecting keys within some object.",
   "main": "./lib/index.js",
   "scripts": {
