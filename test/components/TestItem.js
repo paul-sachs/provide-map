@@ -8,7 +8,7 @@ import provide from 'react-redux-provide';
 })
 export default class TestItem extends Component {
   static propTypes = {
-    index: PropTypes.number.isRequired
+    index: PropTypes.string.isRequired
   };
 
   render() {
