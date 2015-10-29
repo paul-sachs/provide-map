@@ -1,9 +1,9 @@
 > *Feel free to submit any pull requests or create issues for anything you think might be useful!*
 
-# react-redux-provide-selectable
+# react-redux-provide-map
 
-[![build status](https://img.shields.io/travis/loggur/react-redux-provide-selectable/master.svg?style=flat-square)](https://travis-ci.org/loggur/react-redux-provide-selectable) [![npm version](https://img.shields.io/npm/v/react-redux-provide-selectable.svg?style=flat-square)](https://www.npmjs.com/package/react-redux-provide-selectable)
-[![npm downloads](https://img.shields.io/npm/dm/react-redux-provide-selectable.svg?style=flat-square)](https://www.npmjs.com/package/react-redux-provide-selectable)
+[![build status](https://img.shields.io/travis/loggur/react-redux-provide-map/master.svg?style=flat-square)](https://travis-ci.org/loggur/react-redux-provide-map) [![npm version](https://img.shields.io/npm/v/react-redux-provide-map.svg?style=flat-square)](https://www.npmjs.com/package/react-redux-provide-map)
+[![npm downloads](https://img.shields.io/npm/dm/react-redux-provide-map.svg?style=flat-square)](https://www.npmjs.com/package/react-redux-provide-map)
 
 Provides a handful of common actions and props specific to selecting keys within some object.
 
@@ -11,13 +11,13 @@ Provides a handful of common actions and props specific to selecting keys within
 ## Installation
 
 ```
-npm install react-redux-provide react-redux-provide-selectable --save
+npm install react-redux-provide react-redux-provide-map --save
 ```
 
 
 ## Usage
 
-Your components can be optionally provided a `map` (object), the `selectedKey`, and/or the `selected` value.  Simply specify their `propTypes` within your `@provide` decorator.  For a list of available actions, just take a look at [the source](https://github.com/loggur/react-redux-provide-selectable/blob/master/src/selectable.js).
+Your components can be optionally provided a `map` (object), the `selectedKey`, and/or the `selected` value.  Simply specify their `propTypes` within your `@provide` decorator.  For a list of available actions, just take a look at [the source](https://github.com/loggur/react-redux-provide-map/blob/master/src/map.js).
 
 
 ## Example

@@ -1,20 +1,26 @@
 import { assignProviders } from 'react-redux-provide';
-import * as selectable from '../src/index';
+import * as map from '../src/index';
 import Test from './components/Test';
 import TestItem from './components/TestItem';
 
 const states = {
-  numbers: {
+  values: {
     map: {
-      one: 1,
-      two: 2,
-      three: 3
-    },
-    selectedKey: 'one'
+      a: {
+        selected: true,
+        value: 1
+      },
+      b: {
+        value: 2
+      },
+      c: {
+        value: 3
+      }
+    }
   }
 };
 
-assignProviders(states.numbers, { selectable }, {
+assignProviders(states.values, { map }, {
   Test,
   TestItem
 });

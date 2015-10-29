@@ -1,12 +1,12 @@
 {
-  "name": "react-redux-provide-selectable",
+  "name": "react-redux-provide-map",
   "version": "0.1.2",
   "description": "Provides a handful of common actions and props specific to selecting keys within some object.",
   "main": "./lib/index.js",
   "scripts": {
     "build:lib": "babel src --out-dir lib",
-    "build:umd": "webpack src/index.js dist/react-redux-provide-selectable.js --config webpack.config.development.js",
-    "build:umd:min": "webpack src/index.js dist/react-redux-provide-selectable.min.js --config webpack.config.production.js",
+    "build:umd": "webpack src/index.js dist/react-redux-provide-map.js --config webpack.config.development.js",
+    "build:umd:min": "webpack src/index.js dist/react-redux-provide-map.min.js --config webpack.config.production.js",
     "build": "npm run build:lib && npm run build:umd && npm run build:umd:min",
     "clean": "rimraf lib dist coverage",
     "prepublish": "npm run clean && npm run build",
@@ -16,22 +16,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/loggur/react-redux-provide-selectable.git"
+    "url": "git+https://github.com/loggur/react-redux-provide-map.git"
   },
   "keywords": [
     "react",
     "redux",
     "provide",
-    "selectable",
+    "map",
     "object",
     "keys"
   ],
   "author": "timbur",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/loggur/react-redux-provide-selectable/issues"
+    "url": "https://github.com/loggur/react-redux-provide-map/issues"
   },
-  "homepage": "https://github.com/loggur/react-redux-provide-selectable#readme",
+  "homepage": "https://github.com/loggur/react-redux-provide-map#readme",
   "devDependencies": {
     "babel": "^5.8.21",
     "babel-core": "^5.8.22",

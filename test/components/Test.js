@@ -4,9 +4,10 @@ import TestItem from './TestItem';
 
 @provide({
   map: PropTypes.object.isRequired,
-  add: PropTypes.func.isRequired,
-  remove: PropTypes.func.isRequired,
-  select: PropTypes.func.isRequired
+  setMap: PropTypes.func.isRequired,
+  updateMap: PropTypes.func.isRequired,
+  filterMap: PropTypes.func.isRequired,
+  createItem: PropTypes.func.isRequired
 })
 export default class Test extends Component {
   render() {
@@ -18,10 +19,8 @@ export default class Test extends Component {
   }
 
   renderItems() {
-    const { map } = this.props;
-
-    return Object.keys(map).map(
-      key => <TestItem key={key} itemKey={key} value={map[key]} />
+    return Object.keys(this.props.map).map(
+      (index) => <TestItem key={index} index={index} />
     );
   }
 }

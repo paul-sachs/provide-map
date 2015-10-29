@@ -2,26 +2,21 @@ import React, { Component, PropTypes } from 'react';
 import provide from 'react-redux-provide';
 
 @provide({
-  selected: PropTypes.number.isRequired,
-  selectedKey: PropTypes.string.isRequired
+  item: PropTypes.object,
+  updateItem: PropTypes.func.isRequired,
+  deleteItem: PropTypes.func.isRequired
 })
 export default class TestItem extends Component {
   static propTypes = {
-    itemKey: PropTypes.string.isRequired,
-    value: PropTypes.number.isRequired
+    index: PropTypes.number.isRequired
   };
 
   render() {
-    const { selectedKey, itemKey, value } = this.props;
-    let className = 'test-item';
+    const { item } = this.props;
 
-    if (selectedKey === itemKey) {
-      className += ' is-selected';
-    }
-
-    return (
-      <li className={className}>
-        {value}
+    return item && (
+      <li className="test-item">
+        {item.value}
       </li>
     );
   }

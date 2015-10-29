@@ -1,43 +1,88 @@
-const ADD = 'ADD';
-const REMOVE = 'REMOVE';
-const SELECT = 'SELECT';
+const SET_MAP = 'SET_MAP';
+const UPDATE_MAP = 'UPDATE_MAP';
+const FILTER_MAP = 'FILTER_MAP';
+const CREATE_ITEM = 'CREATE_ITEM';
+const UPDATE_ITEM = 'UPDATE_ITEM';
+const DELETE_ITEM = 'DELETE_ITEM';
 
 export const actions = {
-  add(key, value) {
-    return { type: ADD, key, value };
-  },
-  
-  remove(key) {
-    return { type: REMOVE, key };
+  setMap(map) {
+    return { type: SET_MAP, map };
   },
 
-  select(key) {
-    return { type: SELECT, key };
+  updateMap(update) {
+    return { type: UPDATE_MAP, update };
+  },
+
+  filterMap(filter) {
+    return { type: FILTER_MAP, filter };
+  },
+
+  createItem(index, item) {
+    return { type: CREATE_ITEM, index, item };
+  },
+
+  updateItem(index, item) {
+    return { type: UPDATE_ITEM, index, item };
+  },
+
+  deleteItem(index) {
+    return { type: DELETE_ITEM, index };
   }
 };
 
 export const reducers = {
-  map(state = {}, action) {
-    const { key, value } = action;
-
-    switch (action.type) {
-      case ADD:
-        return { ...state, [key]: value };
-
-      case REMOVE:
-        const nextState = { ...state };
-        delete nextState[key];
-        return nextState;
+  item(state = {}, action) {
+    switch(action.type) {
+      case CREATE_ITEM:
+      case UPDATE_ITEM:
+        return { ...state, ...action.item };
 
       default:
         return state;
     }
   },
 
-  selectedKey(state = null, action) {
+  map(state = {}, action) {
+    const { item, index } = action;
+    let nextState;
+
     switch (action.type) {
-      case SELECT:
-        return action.key;
+      case SET_MAP:
+        return action.map;
+
+      case UPDATE_MAP:
+        nextState = {};
+
+        for (let key in state) {
+          nextState[key] = action.update(state[key], key);
+        }
+
+        return nextState;
+
+      case FILTER_MAP:
+        nextState = {};
+
+        for (let key in state) {
+          if (action.filter(state[key], key)) {
+            nextState[key] = state[key];
+          }
+        }
+
+        return nextState;
+
+      case CREATE_ITEM:
+        return state[index]
+          ? state
+          : { ...state, [index]: reducers.item(undefined, action) };
+
+      case UPDATE_ITEM:
+        return { ...state, [index]: reducers.item(state[index], action) };
+
+      case DELETE_ITEM:
+        nextState = { ...state };
+        delete nextState[index];
+        return nextState;
 
       default:
         return state;
@@ -47,6 +92,6 @@ export const reducers = {
 
 export function merge (stateProps, dispatchProps, parentProps) {
   return Object.assign({}, parentProps, {
-    selected: stateProps.map[stateProps.selectedKey]
+    item: stateProps.map[parentProps.index] || null
   });
 }
