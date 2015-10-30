@@ -10,8 +10,8 @@ export const actions = {
     return { type: SET_MAP, map };
   },
 
-  updateMap(update) {
-    return { type: UPDATE_MAP, update };
+  updateMap(update, updateKey = key => key) {
+    return { type: UPDATE_MAP, update, updateKey };
   },
 
   filterMap(filter) {
@@ -55,7 +55,7 @@ export const reducers = {
         nextState = {};
 
         for (let key in state) {
-          nextState[key] = action.update(state[key], key);
+          nextState[action.updateKey(key)] = action.update(state[key], key);
         }
 
         return nextState;
