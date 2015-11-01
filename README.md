@@ -54,9 +54,9 @@ An instance of `GoodStuff` will then be able to access the following `actions`:
 - `updateMap (Function update)` - updates each key-value pair
 - `filterMap (Function filter)` - filters each key-value pair
 - `clearMap ()` - clears the map
-- `setItem (Number index, Mixed item)` - sets the item at some `index` (note: we're referring to the `key` as `index` because `this.props.key` is reserved for React internally)
-- `updateItem (Number index, Mixed item)` - updates or sets the item at some `index`; if the existing item the update are both objects, it will merge the two as a new object
-- `deleteItem (Number index)` - deletes the item at some `index`
+- `setItem (Mixed index, Mixed item)` - sets the item at some `index` (note: we're referring to the `key` as `index` because `this.props.key` is reserved for React internally)
+- `updateItem (Mixed index, Mixed item)` - updates or sets the item at some `index`; if the existing item the update are both objects, it will merge the two as a new object
+- `deleteItem (Mixed index)` - deletes the item at some `index`
 
 And `reducers`:
 
