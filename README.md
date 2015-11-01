@@ -36,11 +36,11 @@ import GoodStuff from './components/GoodStuff';
 const map = provideMap();
 
 const initialState = {
-  map: [
-    {
-      time: Date.now()
-    }
-  ]
+  map: new Map([
+    ['a', { fruit: 'apple' }],
+    ['b', { fruit: 'banana' }],
+    ['c', { vegetable: 'carrot' }]
+  ])
 };
 
 assignProviders(initialState, { map }, {
@@ -73,17 +73,17 @@ import { assignProviders } from 'react-redux-provide';
 import provideMap from 'react-redux-provide-map';
 import GoodStuff from './components/GoodStuff';
 
-const map = provideMap('goodMap', 'goodItem', 'goodIndex');
+const goodMap = provideMap('goodMap', 'goodItem', 'goodIndex');
 
 const initialState = {
-  map: [
-    {
-      time: Date.now()
-    }
-  ]
+  goodMap: new Map([
+    ['a', { fruit: 'apple' }],
+    ['b', { fruit: 'banana' }],
+    ['c', { vegetable: 'carrot' }]
+  ])
 };
 
-assignProviders(initialState, { map }, {
+assignProviders(initialState, { goodMap }, {
   GoodStuff
 });
 ```
