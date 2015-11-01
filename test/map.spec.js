@@ -6,121 +6,161 @@ import Test from './components/Test';
 import TestItem from './components/TestItem';
 
 const test = renderTest(Test);
-const testItem = renderTest(TestItem, { index: 'a' });
+const testItem = renderTest(TestItem, { letter: 'a' });
 
 describe('react-redux-provide-map', () => {
   it('should have initialized map', () => {
-    expect(typeof test.wrappedInstance.props.map).toBe('object');
-    expect(typeof test.wrappedInstance.props.map.a).toBe('object');
-    expect(typeof test.wrappedInstance.props.map.b).toBe('object');
-    expect(typeof test.wrappedInstance.props.map.c).toBe('object');
-    expect(test.wrappedInstance.props.map.a.selected).toBe(true);
-    expect(test.wrappedInstance.props.map.a.value).toBe(1);
-    expect(test.wrappedInstance.props.map.b.value).toBe(2);
-    expect(test.wrappedInstance.props.map.c.value).toBe(3);
+    expect(test.wrappedInstance.props.testMap instanceof Map).toBe(true);
+    expect(typeof test.wrappedInstance.props.testMap.get('a')).toBe('object');
+    expect(test.wrappedInstance.props.testMap.size).toBe(3);
+    expect(test.wrappedInstance.props.testMapSize).toBe(3);
+    expect(test.wrappedInstance.props.testMap.get('a').selected).toBe(true);
+    expect(test.wrappedInstance.props.testMap.get('a').value).toBe(1);
+    expect(typeof test.wrappedInstance.props.testMap.get('b')).toBe('object');
+    expect(test.wrappedInstance.props.testMap.get('b').value).toBe(2);
+    expect(typeof test.wrappedInstance.props.testMap.get('c')).toBe('object');
+    expect(test.wrappedInstance.props.testMap.get('c').value).toBe(3);
   });
 
   it('should provide item when index prop is present', () => {
-    expect(testItem.wrappedInstance.props.index).toBe('a');
-    expect(testItem.wrappedInstance.props.item.selected).toBe(true);
-    expect(testItem.wrappedInstance.props.item.value).toBe(1);
+    expect(testItem.wrappedInstance.props.letter).toBe('a');
+    expect(testItem.wrappedInstance.props.hasTestItem).toBe(true);
+    expect(testItem.wrappedInstance.props.testItem.selected).toBe(true);
+    expect(testItem.wrappedInstance.props.testItem.value).toBe(1);
   });
 
   it('should setMap', () => {
-    test.wrappedInstance.props.setMap({
-      a: {value: 'apple'},
-      b: {value: 'banana'},
-      c: {value: 'carrot'}
-    });
+    test.wrappedInstance.props.setTestMap([
+      ['a', {value: 'apple'}],
+      ['b', {value: 'banana'}],
+      ['c', {value: 'carrot'}]
+    ]);
 
-    expect(typeof test.wrappedInstance.props.map).toBe('object');
-    expect(typeof test.wrappedInstance.props.map.a).toBe('object');
-    expect(typeof test.wrappedInstance.props.map.b).toBe('object');
-    expect(typeof test.wrappedInstance.props.map.c).toBe('object');
-    expect(test.wrappedInstance.props.map.a.value).toBe('apple');
-    expect(test.wrappedInstance.props.map.b.value).toBe('banana');
-    expect(test.wrappedInstance.props.map.c.value).toBe('carrot');
+    expect(test.wrappedInstance.props.testMap instanceof Map).toBe(true);
+    expect(test.wrappedInstance.props.testMap.size).toBe(3);
+    expect(test.wrappedInstance.props.testMapSize).toBe(3);
+    expect(typeof test.wrappedInstance.props.testMap.get('a')).toBe('object');
+    expect(test.wrappedInstance.props.testMap.get('a').value).toBe('apple');
+    expect(typeof test.wrappedInstance.props.testMap.get('b')).toBe('object');
+    expect(test.wrappedInstance.props.testMap.get('b').value).toBe('banana');
+    expect(typeof test.wrappedInstance.props.testMap.get('c')).toBe('object');
+    expect(test.wrappedInstance.props.testMap.get('c').value).toBe('carrot');
 
-    expect(testItem.wrappedInstance.props.index).toBe('a');
-    expect(testItem.wrappedInstance.props.item.value).toBe('apple');
+    expect(testItem.wrappedInstance.props.letter).toBe('a');
+    expect(testItem.wrappedInstance.props.hasTestItem).toBe(true);
+    expect(testItem.wrappedInstance.props.testItem.selected).toBe(undefined);
+    expect(testItem.wrappedInstance.props.testItem.value).toBe('apple');
   });
 
   it('should updateMap', () => {
-    test.wrappedInstance.props.updateMap((item) => {
-      return { ...item, value: item.value.slice(0, 3) };
-    });
+    test.wrappedInstance.props.updateTestMap(([letter, testItem]) => (
+      [ letter, { ...testItem, value: testItem.value.slice(0, 3) } ]
+    ));
 
-    expect(typeof test.wrappedInstance.props.map).toBe('object');
-    expect(typeof test.wrappedInstance.props.map.a).toBe('object');
-    expect(typeof test.wrappedInstance.props.map.b).toBe('object');
-    expect(typeof test.wrappedInstance.props.map.c).toBe('object');
-    expect(test.wrappedInstance.props.map.a.value).toBe('app');
-    expect(test.wrappedInstance.props.map.b.value).toBe('ban');
-    expect(test.wrappedInstance.props.map.c.value).toBe('car');
+    expect(test.wrappedInstance.props.testMap instanceof Map).toBe(true);
+    expect(test.wrappedInstance.props.testMap.size).toBe(3);
+    expect(test.wrappedInstance.props.testMapSize).toBe(3);
+    expect(typeof test.wrappedInstance.props.testMap.get('a')).toBe('object');
+    expect(test.wrappedInstance.props.testMap.get('a').value).toBe('app');
+    expect(typeof test.wrappedInstance.props.testMap.get('b')).toBe('object');
+    expect(test.wrappedInstance.props.testMap.get('b').value).toBe('ban');
+    expect(typeof test.wrappedInstance.props.testMap.get('c')).toBe('object');
+    expect(test.wrappedInstance.props.testMap.get('c').value).toBe('car');
 
-    expect(testItem.wrappedInstance.props.index).toBe('a');
-    expect(testItem.wrappedInstance.props.item.value).toBe('app');
+    expect(testItem.wrappedInstance.props.letter).toBe('a');
+    expect(testItem.wrappedInstance.props.hasTestItem).toBe(true);
+    expect(testItem.wrappedInstance.props.testItem.selected).toBe(undefined);
+    expect(testItem.wrappedInstance.props.testItem.value).toBe('app');
   });
 
   it('should filterMap', () => {
-    test.wrappedInstance.props.filterMap((item, index) => {
-      return item.value !== 'ban' && index !== 'c';
-    });
+    test.wrappedInstance.props.filterTestMap(([letter, testItem]) => (
+      testItem.value !== 'ban' && letter !== 'c'
+    ));
 
-    expect(typeof test.wrappedInstance.props.map).toBe('object');
-    expect(typeof test.wrappedInstance.props.map.a).toBe('object');
-    expect(typeof test.wrappedInstance.props.map.b).toBe('undefined');
-    expect(typeof test.wrappedInstance.props.map.c).toBe('undefined');
-    expect(test.wrappedInstance.props.map.a.value).toBe('app');
+    expect(test.wrappedInstance.props.testMap instanceof Map).toBe(true);
+    expect(test.wrappedInstance.props.testMap.size).toBe(1);
+    expect(test.wrappedInstance.props.testMapSize).toBe(1);
+    expect(typeof test.wrappedInstance.props.testMap.get('a')).toBe('object');
+    expect(test.wrappedInstance.props.testMap.get('a').value).toBe('app');
+    expect(test.wrappedInstance.props.testMap.get('b')).toBe(undefined);
+    expect(test.wrappedInstance.props.testMap.get('c')).toBe(undefined);
 
-    expect(testItem.wrappedInstance.props.index).toBe('a');
-    expect(testItem.wrappedInstance.props.item.value).toBe('app');
+    expect(testItem.wrappedInstance.props.letter).toBe('a');
+    expect(testItem.wrappedInstance.props.hasTestItem).toBe(true);
+    expect(testItem.wrappedInstance.props.testItem.selected).toBe(undefined);
+    expect(testItem.wrappedInstance.props.testItem.value).toBe('app');
   });
 
-  it('should createItem', () => {
-    test.wrappedInstance.props.createItem('d', {
+  it('should setItem', () => {
+    test.wrappedInstance.props.setTestItem('d', {
       value: 'donut'
     });
 
-    expect(typeof test.wrappedInstance.props.map).toBe('object');
-    expect(typeof test.wrappedInstance.props.map.a).toBe('object');
-    expect(typeof test.wrappedInstance.props.map.d).toBe('object');
-    expect(test.wrappedInstance.props.map.a.value).toBe('app');
-    expect(test.wrappedInstance.props.map.d.value).toBe('donut');
+    expect(test.wrappedInstance.props.testMap instanceof Map).toBe(true);
+    expect(test.wrappedInstance.props.testMap.size).toBe(2);
+    expect(test.wrappedInstance.props.testMapSize).toBe(2);
+    expect(typeof test.wrappedInstance.props.testMap.get('a')).toBe('object');
+    expect(test.wrappedInstance.props.testMap.get('a').value).toBe('app');
+    expect(typeof test.wrappedInstance.props.testMap.get('d')).toBe('object');
+    expect(test.wrappedInstance.props.testMap.get('d').value).toBe('donut');
 
-    expect(testItem.wrappedInstance.props.index).toBe('a');
-    expect(testItem.wrappedInstance.props.item.value).toBe('app');
+    expect(testItem.wrappedInstance.props.letter).toBe('a');
+    expect(testItem.wrappedInstance.props.hasTestItem).toBe(true);
+    expect(testItem.wrappedInstance.props.testItem.selected).toBe(undefined);
+    expect(testItem.wrappedInstance.props.testItem.value).toBe('app');
   });
 
   it('should updateItem', () => {
-    testItem.wrappedInstance.props.updateItem(
-      testItem.wrappedInstance.props.index, {
+    testItem.wrappedInstance.props.updateTestItem(
+      testItem.wrappedInstance.props.letter, {
         value: 'apple',
         updated: true
       }
     );
 
-    expect(typeof test.wrappedInstance.props.map).toBe('object');
-    expect(typeof test.wrappedInstance.props.map.a).toBe('object');
-    expect(typeof test.wrappedInstance.props.map.d).toBe('object');
-    expect(test.wrappedInstance.props.map.a.updated).toBe(true);
-    expect(test.wrappedInstance.props.map.a.value).toBe('apple');
-    expect(test.wrappedInstance.props.map.d.value).toBe('donut');
+    expect(test.wrappedInstance.props.testMap instanceof Map).toBe(true);
+    expect(test.wrappedInstance.props.testMap.size).toBe(2);
+    expect(test.wrappedInstance.props.testMapSize).toBe(2);
+    expect(typeof test.wrappedInstance.props.testMap.get('a')).toBe('object');
+    expect(test.wrappedInstance.props.testMap.get('a').value).toBe('apple');
+    expect(typeof test.wrappedInstance.props.testMap.get('d')).toBe('object');
+    expect(test.wrappedInstance.props.testMap.get('d').value).toBe('donut');
 
-    expect(testItem.wrappedInstance.props.index).toBe('a');
-    expect(testItem.wrappedInstance.props.item.value).toBe('apple');
+    expect(testItem.wrappedInstance.props.letter).toBe('a');
+    expect(testItem.wrappedInstance.props.hasTestItem).toBe(true);
+    expect(testItem.wrappedInstance.props.testItem.selected).toBe(undefined);
+    expect(testItem.wrappedInstance.props.testItem.value).toBe('apple');
+    expect(testItem.wrappedInstance.props.testItem.updated).toBe(true);
   });
 
   it('should deleteItem', () => {
-    testItem.wrappedInstance.props.deleteItem('d');
+    testItem.wrappedInstance.props.deleteTestItem(
+      testItem.wrappedInstance.props.letter
+    );
 
-    expect(typeof test.wrappedInstance.props.map).toBe('object');
-    expect(typeof test.wrappedInstance.props.map.a).toBe('object');
-    expect(typeof test.wrappedInstance.props.map.d).toBe('undefined');
-    expect(test.wrappedInstance.props.map.a.updated).toBe(true);
-    expect(test.wrappedInstance.props.map.a.value).toBe('apple');
+    expect(test.wrappedInstance.props.testMap instanceof Map).toBe(true);
+    expect(test.wrappedInstance.props.testMap.size).toBe(1);
+    expect(test.wrappedInstance.props.testMapSize).toBe(1);
+    expect(test.wrappedInstance.props.testMap.get('a')).toBe(undefined);
+    expect(typeof test.wrappedInstance.props.testMap.get('d')).toBe('object');
+    expect(test.wrappedInstance.props.testMap.get('d').value).toBe('donut');
 
-    expect(testItem.wrappedInstance.props.index).toBe('a');
-    expect(testItem.wrappedInstance.props.item.value).toBe('apple');
+    expect(testItem.wrappedInstance.props.letter).toBe('a');
+    expect(testItem.wrappedInstance.props.hasTestItem).toBe(false);
+    expect(testItem.wrappedInstance.props.testItem).toBe(undefined);
+  });
+
+  it('should clearMap', () => {
+    test.wrappedInstance.props.clearTestMap();
+
+    expect(test.wrappedInstance.props.testMap instanceof Map).toBe(true);
+    expect(test.wrappedInstance.props.testMap.size).toBe(0);
+    expect(test.wrappedInstance.props.testMapSize).toBe(0);
+    expect(test.wrappedInstance.props.testMap.get('d')).toBe(undefined);
+
+    expect(testItem.wrappedInstance.props.letter).toBe('a');
+    expect(testItem.wrappedInstance.props.hasTestItem).toBe(false);
+    expect(testItem.wrappedInstance.props.testItem).toBe(undefined);
   });
 });

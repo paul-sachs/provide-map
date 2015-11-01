@@ -1,97 +1,110 @@
-const SET_MAP = 'SET_MAP';
-const UPDATE_MAP = 'UPDATE_MAP';
-const FILTER_MAP = 'FILTER_MAP';
-const CREATE_ITEM = 'CREATE_ITEM';
-const UPDATE_ITEM = 'UPDATE_ITEM';
-const DELETE_ITEM = 'DELETE_ITEM';
+export default function provideMap (
+  mapName = 'map', itemName = 'item', indexName = 'index'
+) {
+  const properMapName = mapName[0].toUpperCase()+mapName.substring(1);
+  const properItemName = itemName[0].toUpperCase()+itemName.substring(1);
+  const capitalMapName = mapName.toUpperCase();
+  const capitalItemName = itemName.toUpperCase();
+  
+  const SET_MAP = `SET_${capitalMapName}`;
+  const UPDATE_MAP = `UPDATE_${capitalMapName}`;
+  const FILTER_MAP = `FILTER_${capitalMapName}`;
+  const CLEAR_MAP = `CLEAR_${capitalMapName}`;
+  const SET_ITEM = `SET_${capitalItemName}`;
+  const UPDATE_ITEM = `UPDATE_${capitalItemName}`;
+  const DELETE_ITEM = `DELETE_${capitalItemName}`;
 
-export const actions = {
-  setMap(map) {
-    return { type: SET_MAP, map };
-  },
+  const actions = {
+    [`set${properMapName}`]: (map) => (
+      { type: SET_MAP, [mapName]: map }
+    ),
 
-  updateMap(update, updateKey = key => key) {
-    return { type: UPDATE_MAP, update, updateKey };
-  },
+    [`update${properMapName}`]: (update) => (
+      { type: UPDATE_MAP, update }
+    ),
 
-  filterMap(filter) {
-    return { type: FILTER_MAP, filter };
-  },
+    [`filter${properMapName}`]: (filter) => (
+      { type: FILTER_MAP, filter }
+    ),
 
-  createItem(index, item) {
-    return { type: CREATE_ITEM, index, item };
-  },
+    [`clear${properMapName}`]: () => (
+      { type: CLEAR_MAP }
+    ),
 
-  updateItem(index, item) {
-    return { type: UPDATE_ITEM, index, item };
-  },
+    [`set${properItemName}`]: (index, item) => (
+      { type: SET_ITEM, [indexName]: index, [itemName]: item }
+    ),
 
-  deleteItem(index) {
-    return { type: DELETE_ITEM, index };
-  }
-};
+    [`update${properItemName}`]: (index, item) => (
+      { type: UPDATE_ITEM, [indexName]: index, [itemName]: item }
+    ),
 
-export const reducers = {
-  item(state = {}, action) {
-    switch(action.type) {
-      case CREATE_ITEM:
-      case UPDATE_ITEM:
-        return { ...state, ...action.item };
+    [`delete${properItemName}`]: (index) => (
+      { type: DELETE_ITEM, [indexName]: index }
+    )
+  };
 
-      default:
-        return state;
-    }
-  },
+  const reducers = {
+    [mapName]: (state = new Map(), action) => {
+      switch (action.type) {
+        case SET_MAP:
+          return new Map(action[mapName]);
 
-  map(state = {}, action) {
-    const { item, index } = action;
-    let nextState;
-
-    switch (action.type) {
-      case SET_MAP:
-        return action.map;
-
-      case UPDATE_MAP:
-        nextState = {};
-
-        for (let key in state) {
-          nextState[action.updateKey(key)] = action.update(state[key], key);
-        }
-
-        return nextState;
-
-      case FILTER_MAP:
-        nextState = {};
-
-        for (let key in state) {
-          if (action.filter(state[key], key)) {
-            nextState[key] = state[key];
+        case UPDATE_MAP:
+          const updatedPairs = [];
+          for (let pair of state.entries()) {
+            updatedPairs.push(action.update(pair));
           }
-        }
+          return new Map(updatedPairs);
 
-        return nextState;
+        case FILTER_MAP:
+          const filteredPairs = [];
+          for (let pair of state.entries()) {
+            if (action.filter(pair)) {
+              filteredPairs.push(pair);
+            }
+          }
+          return new Map(filteredPairs);
 
-      case CREATE_ITEM:
-        return state[index]
-          ? state
-          : { ...state, [index]: reducers.item(undefined, action) };
+        case CLEAR_MAP:
+          return new Map();
 
-      case UPDATE_ITEM:
-        return { ...state, [index]: reducers.item(state[index], action) };
+        case SET_ITEM:
+          return new Map(state).set(action[indexName], action[itemName]);
 
-      case DELETE_ITEM:
-        nextState = { ...state };
-        delete nextState[index];
-        return nextState;
+        case UPDATE_ITEM:
+          let updatedItem = state.get(action[indexName]);
+          if (Array.isArray(updatedItem)) {
+            updatedItem = [ ...updatedItem, ...action[itemName] ];
+          } else if (typeof updatedItem === 'object') {
+            updatedItem = { ...updatedItem, ...action[itemName] };
+          } else {
+            updatedItem = action[itemName];
+          }
+          return new Map(state).set(action[indexName], updatedItem);
 
-      default:
-        return state;
+        case DELETE_ITEM:
+          let updatedMap = new Map(state);
+          updatedMap.delete(action[indexName]);
+          return updatedMap;
+
+        default:
+          return state;
+      }
     }
-  }
-};
+  };
 
-export function merge (stateProps, dispatchProps, parentProps) {
-  return Object.assign({}, parentProps, {
-    item: stateProps.map[parentProps.index] || null
-  });
+  function merge (stateProps, dispatchProps, parentProps) {
+    const map = stateProps[mapName];
+    const index = parentProps[indexName];
+
+    return {
+      ...parentProps,
+      [`${mapName}Size`]: map.size,
+      [`has${properItemName}`]: map.has(index),
+      [itemName]: map.get(index)
+    };
+  }
+
+  return { actions, reducers, merge };
 }

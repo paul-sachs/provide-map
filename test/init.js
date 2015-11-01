@@ -1,26 +1,26 @@
 import { assignProviders } from 'react-redux-provide';
-import * as map from '../src/index';
+import provideMap from '../src/index';
 import Test from './components/Test';
 import TestItem from './components/TestItem';
 
-const states = {
-  values: {
-    map: {
-      a: {
-        selected: true,
-        value: 1
-      },
-      b: {
-        value: 2
-      },
-      c: {
-        value: 3
-      }
-    }
-  }
+const testMap = provideMap('testMap', 'testItem', 'letter');
+
+const initialState = {
+  testMap: new Map([
+    ['a', {
+      selected: true,
+      value: 1
+    }],
+    ['b', {
+      value: 2
+    }],
+    ['c', {
+      value: 3
+    }]
+  ])
 };
 
-assignProviders(states.values, { map }, {
+assignProviders(initialState, { testMap }, {
   Test,
   TestItem
 });

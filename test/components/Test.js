@@ -3,11 +3,13 @@ import provide from 'react-redux-provide';
 import TestItem from './TestItem';
 
 @provide({
-  map: PropTypes.object.isRequired,
-  setMap: PropTypes.func.isRequired,
-  updateMap: PropTypes.func.isRequired,
-  filterMap: PropTypes.func.isRequired,
-  createItem: PropTypes.func.isRequired
+  testMap: PropTypes.object.isRequired,
+  testMapSize: PropTypes.number.isRequired,
+  setTestMap: PropTypes.func.isRequired,
+  updateTestMap: PropTypes.func.isRequired,
+  filterTestMap: PropTypes.func.isRequired,
+  clearTestMap: PropTypes.func.isRequired,
+  setTestItem: PropTypes.func.isRequired
 })
 export default class Test extends Component {
   render() {
@@ -19,8 +21,14 @@ export default class Test extends Component {
   }
 
   renderItems() {
-    return Object.keys(this.props.map).map(
-      (index) => <TestItem key={index} index={index} />
-    );
+    const items = [];
+
+    for (let letter of this.props.testMap.keys()) {
+      items.push(
+        <TestItem key={letter} letter={letter} />
+      );
+    }
+
+    return items;
   }
 }
