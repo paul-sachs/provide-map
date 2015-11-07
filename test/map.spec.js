@@ -111,6 +111,25 @@ describe('react-redux-provide-map', () => {
     expect(testItem.wrappedInstance.props.testItem.value).toBe('app');
   });
 
+  it('should renameItem', () => {
+    testItem.wrappedInstance.props.renameTestItem('a', 'z');
+
+    expect(test.wrappedInstance.props.testMap instanceof Map).toBe(true);
+    expect(test.wrappedInstance.props.testMap.size).toBe(2);
+    expect(test.wrappedInstance.props.testMapSize).toBe(2);
+    expect(test.wrappedInstance.props.testMap.get('a')).toBe(undefined);
+    expect(typeof test.wrappedInstance.props.testMap.get('z')).toBe('object');
+    expect(test.wrappedInstance.props.testMap.get('z').value).toBe('app');
+    expect(typeof test.wrappedInstance.props.testMap.get('d')).toBe('object');
+    expect(test.wrappedInstance.props.testMap.get('d').value).toBe('donut');
+
+    expect(testItem.wrappedInstance.props.letter).toBe('a');
+    expect(testItem.wrappedInstance.props.hasTestItem).toBe(false);
+    expect(testItem.wrappedInstance.props.testItem).toBe(undefined);
+
+    testItem.wrappedInstance.props.renameTestItem('z', 'a');
+  });
+
   it('should updateItem', () => {
     testItem.wrappedInstance.props.updateTestItem(
       testItem.wrappedInstance.props.letter, {

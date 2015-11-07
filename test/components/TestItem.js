@@ -4,6 +4,7 @@ import provide from 'react-redux-provide';
 @provide({
   testItem: PropTypes.object,
   hasTestItem: PropTypes.bool.isRequired,
+  renameTestItem: PropTypes.func.isRequired,
   updateTestItem: PropTypes.func.isRequired,
   deleteTestItem: PropTypes.func.isRequired
 })

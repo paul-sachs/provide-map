@@ -3,6 +3,8 @@ export default function provideMap (
 ) {
   const properMapName = mapName[0].toUpperCase()+mapName.substring(1);
   const properItemName = itemName[0].toUpperCase()+itemName.substring(1);
+  const properIndexName = indexName[0].toUpperCase()+indexName.substring(1);
+  const newIndexName = `new${properIndexName}`;
   const capitalMapName = mapName.toUpperCase();
   const capitalItemName = itemName.toUpperCase();
   
@@ -11,6 +13,7 @@ export default function provideMap (
   const FILTER_MAP = `FILTER_${capitalMapName}`;
   const CLEAR_MAP = `CLEAR_${capitalMapName}`;
   const SET_ITEM = `SET_${capitalItemName}`;
+  const RENAME_ITEM = `RENAME_${capitalItemName}`;
   const UPDATE_ITEM = `UPDATE_${capitalItemName}`;
   const DELETE_ITEM = `DELETE_${capitalItemName}`;
 
@@ -33,6 +36,10 @@ export default function provideMap (
 
     [`set${properItemName}`]: (index, item) => (
       { type: SET_ITEM, [indexName]: index, [itemName]: item }
+    ),
+
+    [`rename${properItemName}`]: (index, newIndex) => (
+      { type: RENAME_ITEM, [indexName]: index, [newIndexName]: newIndex }
     ),
 
     [`update${properItemName}`]: (index, item) => (
@@ -72,6 +79,17 @@ export default function provideMap (
         case SET_ITEM:
           return new Map(state).set(action[indexName], action[itemName]);
 
+        case RENAME_ITEM:
+          const renamedPairs = [];
+          for (let pair of state.entries()) {
+            if (pair[0] === action[indexName]) {
+              renamedPairs.push([action[newIndexName], pair[1]]);
+            } else {
+              renamedPairs.push(pair);
+            }
+          }
+          return new Map(renamedPairs);
+
         case UPDATE_ITEM:
           let updatedItem = state.get(action[indexName]);
           if (Array.isArray(updatedItem)) {
@@ -84,9 +102,9 @@ export default function provideMap (
           return new Map(state).set(action[indexName], updatedItem);
 
         case DELETE_ITEM:
-          let updatedMap = new Map(state);
-          updatedMap.delete(action[indexName]);
-          return updatedMap;
+          const deletedItemMap = new Map(state);
+          deletedItemMap.delete(action[indexName]);
+          return deletedItemMap;
 
         default:
           return state;
