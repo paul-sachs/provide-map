@@ -1,16 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import provide from 'react-redux-provide';
 
-@provide({
-  testItem: PropTypes.object,
-  hasTestItem: PropTypes.bool.isRequired,
-  renameTestItem: PropTypes.func.isRequired,
-  updateTestItem: PropTypes.func.isRequired,
-  deleteTestItem: PropTypes.func.isRequired
-})
+@provide
 export default class TestItem extends Component {
   static propTypes = {
-    letter: PropTypes.string.isRequired
+    letter: PropTypes.string.isRequired,
+    testItem: PropTypes.object,
+    hasTestItem: PropTypes.bool.isRequired,
+    renameTestItem: PropTypes.func.isRequired,
+    updateTestItem: PropTypes.func.isRequired,
+    deleteTestItem: PropTypes.func.isRequired
   };
 
   render() {

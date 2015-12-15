@@ -35,7 +35,7 @@ module.exports = {
     ]
   },
   output: {
-    library: 'ReactReduxProvideSelectable',
+    library: 'provideMap',
     libraryTarget: 'umd'
   },
   resolve: {
