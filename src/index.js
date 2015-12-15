@@ -17,6 +17,17 @@ export default function provideMap (
   const UPDATE_ITEM = `UPDATE_${capitalItemName}`;
   const DELETE_ITEM = `DELETE_${capitalItemName}`;
 
+  const constants = {
+    [SET_MAP]: SET_MAP,
+    [UPDATE_MAP]: UPDATE_MAP,
+    [FILTER_MAP]: FILTER_MAP,
+    [CLEAR_MAP]: CLEAR_MAP,
+    [SET_ITEM]: SET_ITEM,
+    [RENAME_ITEM]: RENAME_ITEM,
+    [UPDATE_ITEM]: UPDATE_ITEM,
+    [DELETE_ITEM]: DELETE_ITEM
+  };
+
   const actions = {
     [`set${properMapName}`]: (map) => (
       { type: SET_MAP, [mapName]: map }
@@ -124,5 +135,5 @@ export default function provideMap (
     };
   }
 
-  return { actions, reducers, merge };
+  return { ...constants, actions, reducers, merge };
 }
