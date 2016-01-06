@@ -26,26 +26,28 @@ The main export `provideMap` takes 3 arguments:
 3. `indexName` - defaults to `'index'`
 
 
-## Example with default `actions` and `reducers`
+## Condensed example with default `actions` and `reducers`
 
 ```js
-import { assignProviders } from 'react-redux-provide';
+import { render } from 'react-dom';
 import provideMap from 'react-redux-provide-map';
 import GoodStuff from './components/GoodStuff';
 
 const map = provideMap();
 
-const initialState = {
-  map: new Map([
-    ['a', { fruit: 'apple' }],
-    ['b', { fruit: 'banana' }],
-    ['c', { vegetable: 'carrot' }]
-  ])
+const context = {
+  providers: { map },
+  providedState: {
+    map: new Map([
+      ['a', { fruit: 'apple' }],
+      ['b', { fruit: 'banana' }],
+      ['c', { vegetable: 'carrot' }]
+    ])
+  }
 };
 
-assignProviders(initialState, { map }, {
-  GoodStuff
-});
+// the GoodStuff component should be decorated with @provide
+render(<GoodStuff { ...context } />, document.getElementById('root'));
 ```
 
 An instance of `GoodStuff` will then be able to access the following `actions`:
@@ -66,26 +68,28 @@ And `reducers`:
 - `hasItem` - if the component instance contains a prop key matching the `indexName` (e.g., `index`), the existence of the `item` at that key within the map will be provided as a boolean value
 
 
-## Example with predictable, custom `actions` and `reducers`
+## Condensed example with predictable, custom `actions` and `reducers`
 
 ```js
-import { assignProviders } from 'react-redux-provide';
+import { render } from 'react-dom';
 import provideMap from 'react-redux-provide-map';
 import GoodStuff from './components/GoodStuff';
 
 const goodMap = provideMap('goodMap', 'goodItem', 'goodIndex');
 
-const initialState = {
-  goodMap: new Map([
-    ['a', { fruit: 'apple' }],
-    ['b', { fruit: 'banana' }],
-    ['c', { vegetable: 'carrot' }]
-  ])
+const context = {
+  providers: { goodMap },
+  providedState: {
+    goodMap: new Map([
+      ['a', { fruit: 'apple' }],
+      ['b', { fruit: 'banana' }],
+      ['c', { vegetable: 'carrot' }]
+    ])
+  }
 };
 
-assignProviders(initialState, { goodMap }, {
-  GoodStuff
-});
+// the GoodStuff component should be decorated with @provide
+render(<GoodStuff { ...context } />, document.getElementById('root'));
 ```
 
 An instance of `GoodStuff` will then be able to access the same `actions` as above, but with slightly different keys:

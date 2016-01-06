@@ -2,6 +2,7 @@ import expect from 'expect';
 import React, { PropTypes } from 'react';
 import { renderTest } from 'react-redux-provide-test-utils';
 import { Test, TestItem } from './components/index';
+import providers from './providers/index';
 
 const context = {
   providers,
@@ -61,11 +62,6 @@ describe('react-redux-provide-map', () => {
     expect(test.wrappedInstance.props.testMap.get('b').value).toBe('banana');
     expect(typeof test.wrappedInstance.props.testMap.get('c')).toBe('object');
     expect(test.wrappedInstance.props.testMap.get('c').value).toBe('carrot');
-
-    expect(testItem.wrappedInstance.props.letter).toBe('a');
-    expect(testItem.wrappedInstance.props.hasTestItem).toBe(true);
-    expect(testItem.wrappedInstance.props.testItem.selected).toBe(undefined);
-    expect(testItem.wrappedInstance.props.testItem.value).toBe('apple');
   });
 
   it('should updateMap', () => {
@@ -82,11 +78,6 @@ describe('react-redux-provide-map', () => {
     expect(test.wrappedInstance.props.testMap.get('b').value).toBe('ban');
     expect(typeof test.wrappedInstance.props.testMap.get('c')).toBe('object');
     expect(test.wrappedInstance.props.testMap.get('c').value).toBe('car');
-
-    expect(testItem.wrappedInstance.props.letter).toBe('a');
-    expect(testItem.wrappedInstance.props.hasTestItem).toBe(true);
-    expect(testItem.wrappedInstance.props.testItem.selected).toBe(undefined);
-    expect(testItem.wrappedInstance.props.testItem.value).toBe('app');
   });
 
   it('should filterMap', () => {
@@ -101,11 +92,6 @@ describe('react-redux-provide-map', () => {
     expect(test.wrappedInstance.props.testMap.get('a').value).toBe('app');
     expect(test.wrappedInstance.props.testMap.get('b')).toBe(undefined);
     expect(test.wrappedInstance.props.testMap.get('c')).toBe(undefined);
-
-    expect(testItem.wrappedInstance.props.letter).toBe('a');
-    expect(testItem.wrappedInstance.props.hasTestItem).toBe(true);
-    expect(testItem.wrappedInstance.props.testItem.selected).toBe(undefined);
-    expect(testItem.wrappedInstance.props.testItem.value).toBe('app');
   });
 
   it('should setItem', () => {
@@ -120,24 +106,10 @@ describe('react-redux-provide-map', () => {
     expect(test.wrappedInstance.props.testMap.get('a').value).toBe('app');
     expect(typeof test.wrappedInstance.props.testMap.get('d')).toBe('object');
     expect(test.wrappedInstance.props.testMap.get('d').value).toBe('donut');
-
-    expect(testItem.wrappedInstance.props.letter).toBe('a');
-    expect(testItem.wrappedInstance.props.hasTestItem).toBe(true);
-    expect(testItem.wrappedInstance.props.testItem.selected).toBe(undefined);
-    expect(testItem.wrappedInstance.props.testItem.value).toBe('app');
   });
 
   it('should renameItem', () => {
     testItem.wrappedInstance.props.renameTestItem('a', 'z');
-
-    expect(test.wrappedInstance.props.testMap instanceof Map).toBe(true);
-    expect(test.wrappedInstance.props.testMap.size).toBe(2);
-    expect(test.wrappedInstance.props.testMapSize).toBe(2);
-    expect(test.wrappedInstance.props.testMap.get('a')).toBe(undefined);
-    expect(typeof test.wrappedInstance.props.testMap.get('z')).toBe('object');
-    expect(test.wrappedInstance.props.testMap.get('z').value).toBe('app');
-    expect(typeof test.wrappedInstance.props.testMap.get('d')).toBe('object');
-    expect(test.wrappedInstance.props.testMap.get('d').value).toBe('donut');
 
     expect(testItem.wrappedInstance.props.letter).toBe('a');
     expect(testItem.wrappedInstance.props.hasTestItem).toBe(false);
@@ -154,17 +126,9 @@ describe('react-redux-provide-map', () => {
       }
     );
 
-    expect(test.wrappedInstance.props.testMap instanceof Map).toBe(true);
-    expect(test.wrappedInstance.props.testMap.size).toBe(2);
-    expect(test.wrappedInstance.props.testMapSize).toBe(2);
-    expect(typeof test.wrappedInstance.props.testMap.get('a')).toBe('object');
-    expect(test.wrappedInstance.props.testMap.get('a').value).toBe('apple');
-    expect(typeof test.wrappedInstance.props.testMap.get('d')).toBe('object');
-    expect(test.wrappedInstance.props.testMap.get('d').value).toBe('donut');
-
     expect(testItem.wrappedInstance.props.letter).toBe('a');
     expect(testItem.wrappedInstance.props.hasTestItem).toBe(true);
-    expect(testItem.wrappedInstance.props.testItem.selected).toBe(undefined);
+    expect(testItem.wrappedInstance.props.testItem.selected).toBe(true);
     expect(testItem.wrappedInstance.props.testItem.value).toBe('apple');
     expect(testItem.wrappedInstance.props.testItem.updated).toBe(true);
   });
@@ -173,13 +137,6 @@ describe('react-redux-provide-map', () => {
     testItem.wrappedInstance.props.deleteTestItem(
       testItem.wrappedInstance.props.letter
     );
-
-    expect(test.wrappedInstance.props.testMap instanceof Map).toBe(true);
-    expect(test.wrappedInstance.props.testMap.size).toBe(1);
-    expect(test.wrappedInstance.props.testMapSize).toBe(1);
-    expect(test.wrappedInstance.props.testMap.get('a')).toBe(undefined);
-    expect(typeof test.wrappedInstance.props.testMap.get('d')).toBe('object');
-    expect(test.wrappedInstance.props.testMap.get('d').value).toBe('donut');
 
     expect(testItem.wrappedInstance.props.letter).toBe('a');
     expect(testItem.wrappedInstance.props.hasTestItem).toBe(false);
@@ -193,9 +150,5 @@ describe('react-redux-provide-map', () => {
     expect(test.wrappedInstance.props.testMap.size).toBe(0);
     expect(test.wrappedInstance.props.testMapSize).toBe(0);
     expect(test.wrappedInstance.props.testMap.get('d')).toBe(undefined);
-
-    expect(testItem.wrappedInstance.props.letter).toBe('a');
-    expect(testItem.wrappedInstance.props.hasTestItem).toBe(false);
-    expect(testItem.wrappedInstance.props.testItem).toBe(undefined);
   });
 });

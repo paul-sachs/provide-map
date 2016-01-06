@@ -1,4 +1,4 @@
-import provideMap from 'react-redux-provide-map';
+import provideMap from '../../src/index';
 
 const testMap = provideMap('testMap', 'testItem', 'letter');
 
