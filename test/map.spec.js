@@ -1,12 +1,28 @@
-import './init';
 import expect from 'expect';
 import React, { PropTypes } from 'react';
 import { renderTest } from 'react-redux-provide-test-utils';
-import Test from './components/Test';
-import TestItem from './components/TestItem';
+import { Test, TestItem } from './components/index';
 
-const test = renderTest(Test);
-const testItem = renderTest(TestItem, { letter: 'a' });
+const context = {
+  providers,
+  providedState: {
+    testMap: new Map([
+      ['a', {
+        selected: true,
+        value: 1
+      }],
+      ['b', {
+        value: 2
+      }],
+      ['c', {
+        value: 3
+      }]
+    ])
+  }
+};
+
+const test = renderTest(Test, { ...context });
+const testItem = renderTest(TestItem, { ...context, letter: 'a' });
 
 describe('react-redux-provide-map', () => {
   it('should have initialized map', () => {
