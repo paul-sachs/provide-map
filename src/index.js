@@ -118,7 +118,7 @@ export default function provideMap (
           return deletedItemMap;
 
         default:
-          return state;
+          return state instanceof Map ? state : new Map(state);
       }
     }
   };
