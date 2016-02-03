@@ -25,7 +25,7 @@ const context = {
 const test = renderTest(Test, { ...context });
 const testItem = renderTest(TestItem, { ...context, letter: 'a' });
 
-describe('react-redux-provide-map', () => {
+describe('provide-map', () => {
   it('should have initialized map', () => {
     expect(test.wrappedInstance.props.testMap instanceof Map).toBe(true);
     expect(typeof test.wrappedInstance.props.testMap.get('a')).toBe('object');

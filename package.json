@@ -1,12 +1,12 @@
 {
-  "name": "react-redux-provide-map",
+  "name": "provide-map",
   "version": "0.4.4",
   "description": "Provides a handful of common actions and props specific to selecting keys within some object.",
   "main": "./lib/index.js",
   "scripts": {
     "build:lib": "babel src --out-dir lib",
-    "build:umd": "webpack src/index.js dist/react-redux-provide-map.js --config webpack.config.development.js",
-    "build:umd:min": "webpack src/index.js dist/react-redux-provide-map.min.js --config webpack.config.production.js",
+    "build:umd": "webpack src/index.js dist/provide-map.js --config webpack.config.development.js",
+    "build:umd:min": "webpack src/index.js dist/provide-map.min.js --config webpack.config.production.js",
     "build": "npm run build:lib && npm run build:umd && npm run build:umd:min",
     "clean": "rimraf lib dist coverage",
     "prepublish": "npm run clean && npm run build",
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/loggur/react-redux-provide-map.git"
+    "url": "git+https://github.com/loggur/provide-map.git"
   },
   "keywords": [
     "react",
@@ -29,9 +29,9 @@
   "author": "timbur",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/loggur/react-redux-provide-map/issues"
+    "url": "https://github.com/loggur/provide-map/issues"
   },
-  "homepage": "https://github.com/loggur/react-redux-provide-map#readme",
+  "homepage": "https://github.com/loggur/provide-map#readme",
   "devDependencies": {
     "babel": "^5.8.21",
     "babel-core": "^5.8.22",

@@ -1,9 +1,9 @@
 > *Feel free to submit any pull requests or create issues for anything you think might be useful!*
 
-# react-redux-provide-map
+# provide-map
 
-[![build status](https://img.shields.io/travis/loggur/react-redux-provide-map/master.svg?style=flat-square)](https://travis-ci.org/loggur/react-redux-provide-map) [![npm version](https://img.shields.io/npm/v/react-redux-provide-map.svg?style=flat-square)](https://www.npmjs.com/package/react-redux-provide-map)
-[![npm downloads](https://img.shields.io/npm/dm/react-redux-provide-map.svg?style=flat-square)](https://www.npmjs.com/package/react-redux-provide-map)
+[![build status](https://img.shields.io/travis/loggur/provide-map/master.svg?style=flat-square)](https://travis-ci.org/loggur/provide-map) [![npm version](https://img.shields.io/npm/v/provide-map.svg?style=flat-square)](https://www.npmjs.com/package/provide-map)
+[![npm downloads](https://img.shields.io/npm/dm/provide-map.svg?style=flat-square)](https://www.npmjs.com/package/provide-map)
 
 Provides ES6 `Map` instances to React components.
 
@@ -11,13 +11,13 @@ Provides ES6 `Map` instances to React components.
 ## Installation
 
 ```
-npm install react-redux-provide react-redux-provide-map --save
+npm install react-redux-provide provide-map --save
 ```
 
 
 ## Usage
 
-Use `react-redux-provide-map` to create providers with predictably named `actions` and `reducers` specific to manipulating ES6 `Map` instances.  Create as many providers/instances as you want and share them across multiple components.
+Use `provide-map` to create providers with predictably named `actions` and `reducers` specific to manipulating ES6 `Map` instances.  Create as many providers/instances as you want and share them across multiple components.
 
 The main export `provideMap` takes 3 arguments:
 
@@ -30,7 +30,7 @@ The main export `provideMap` takes 3 arguments:
 
 ```js
 import { render } from 'react-dom';
-import provideMap from 'react-redux-provide-map';
+import provideMap from 'provide-map';
 import GoodStuff from './components/GoodStuff';
 
 const map = provideMap();
@@ -72,7 +72,7 @@ And `reducers`:
 
 ```js
 import { render } from 'react-dom';
-import provideMap from 'react-redux-provide-map';
+import provideMap from 'provide-map';
 import GoodStuff from './components/GoodStuff';
 
 const goodMap = provideMap('goodMap', 'goodItem', 'goodIndex');
