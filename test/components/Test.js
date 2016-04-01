@@ -11,7 +11,8 @@ export default class Test extends Component {
     updateTestMap: PropTypes.func.isRequired,
     filterTestMap: PropTypes.func.isRequired,
     clearTestMap: PropTypes.func.isRequired,
-    setTestItem: PropTypes.func.isRequired
+    setTestItem: PropTypes.func.isRequired,
+    mergeTestMap: PropTypes.func.isRequired
   };
 
   render() {

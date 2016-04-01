@@ -7,11 +7,12 @@ export default function provideMap (
   const newIndexName = `new${properIndexName}`;
   const capitalMapName = mapName.toUpperCase();
   const capitalItemName = itemName.toUpperCase();
-  
+
   const SET_MAP = `SET_${capitalMapName}`;
   const UPDATE_MAP = `UPDATE_${capitalMapName}`;
   const FILTER_MAP = `FILTER_${capitalMapName}`;
   const CLEAR_MAP = `CLEAR_${capitalMapName}`;
+  const MERGE_MAP = `MERGE_${capitalMapName}`;
   const SET_ITEM = `SET_${capitalItemName}`;
   const RENAME_ITEM = `RENAME_${capitalItemName}`;
   const UPDATE_ITEM = `UPDATE_${capitalItemName}`;
@@ -22,6 +23,7 @@ export default function provideMap (
     [UPDATE_MAP]: UPDATE_MAP,
     [FILTER_MAP]: FILTER_MAP,
     [CLEAR_MAP]: CLEAR_MAP,
+    [MERGE_MAP]: MERGE_MAP,
     [SET_ITEM]: SET_ITEM,
     [RENAME_ITEM]: RENAME_ITEM,
     [UPDATE_ITEM]: UPDATE_ITEM,
@@ -44,6 +46,11 @@ export default function provideMap (
     [`clear${properMapName}`]: () => (
       { type: CLEAR_MAP }
     ),
+
+    [`merge${properMapName}`]: (map) => (
+      { type: MERGE_MAP, map }
+    ),
+
 
     [`set${properItemName}`]: (index, item) => (
       { type: SET_ITEM, [indexName]: index, [itemName]: item }
@@ -86,6 +93,13 @@ export default function provideMap (
 
         case CLEAR_MAP:
           return new Map();
+
+        case MERGE_MAP:
+          const newMap = new Map(state);
+          for (let [key, value] of action.map) {
+            newMap.set(key, value);
+          }
+          return newMap;
 
         case SET_ITEM:
           return new Map(state).set(action[indexName], action[itemName]);

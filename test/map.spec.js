@@ -151,4 +151,29 @@ describe('provide-map', () => {
     expect(test.wrappedInstance.props.testMapSize).toBe(0);
     expect(test.wrappedInstance.props.testMap.get('d')).toBe(undefined);
   });
+
+  it('should mergeMap', () => {
+    test.wrappedInstance.props.setTestMap([
+      ['a', {value: 'apple'}],
+      ['b', {value: 'banana'}],
+      ['c', {value: 'carrot'}]
+    ]);
+    
+    test.wrappedInstance.props.mergeTestMap([
+      ['a', {value: 'apple sauce'}],
+      ['d', {value: 'durian'}]
+    ]);
+
+    expect(test.wrappedInstance.props.testMap instanceof Map).toBe(true);
+    expect(test.wrappedInstance.props.testMap.size).toBe(4);
+    expect(test.wrappedInstance.props.testMapSize).toBe(4);
+    expect(typeof test.wrappedInstance.props.testMap.get('a')).toBe('object');
+    expect(test.wrappedInstance.props.testMap.get('a').value).toBe('apple sauce');
+    expect(typeof test.wrappedInstance.props.testMap.get('b')).toBe('object');
+    expect(test.wrappedInstance.props.testMap.get('b').value).toBe('banana');
+    expect(typeof test.wrappedInstance.props.testMap.get('c')).toBe('object');
+    expect(test.wrappedInstance.props.testMap.get('c').value).toBe('carrot');
+    expect(typeof test.wrappedInstance.props.testMap.get('d')).toBe('object');
+    expect(test.wrappedInstance.props.testMap.get('d').value).toBe('durian');
+  });
 });
